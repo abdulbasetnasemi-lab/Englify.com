@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Englify | آموزش انگلیسی مدرن و کاربردی</title>
+    
+    <!-- فونت‌ها و آیکون‌ها -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- انیمیشن اسکرول -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #7c3aed;
+            --accent: #06b6d4;
+            --dark: #0f172a;
+            --light: #f8fafc;
+            --gradient: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            --gradient-dark: linear-gradient(135deg, var(--dark) 0%, #1e293b 100%);
+            --glass: rgba(255, 255, 255, 0.1);
+            --shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 30px 60px rgba(0, 0, 0, 0.4);
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius: 1rem;
+            --radius-lg: 2rem;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Vazirmatn', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.8;
+            overflow-x: hidden;
+            font-weight: 300;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(37, 99, 235, 0.15) 0%, transparent 25%),
+                radial-gradient(circle at 90% 80%, rgba(124, 58, 237, 0.1) 0%, transparent 25%);
+            min-height: 100vh;
+        }
+        
+        /* خطوط متحرک در بک‌گراند */
+        .background-lines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        
+        .line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            opacity: 0.1;
+            animation: moveLine 20s linear infinite;
+        }
+        
+        .line:nth-child(1) { top: 20%; left: -100px; width: 300px; height: 1px; animation-delay: 0s; }
+        .line:nth-child(2) { top: 40%; left: -200px; width: 400px; height: 2px; animation-delay: 5s; }
+        .line:nth-child(3) { top: 60%; left: -150px; width: 350px; height: 1px; animation-delay: 10s; }
+        .line:nth-child(4) { top: 80%; left: -250px; width: 450px; height: 2px; animation-delay: 15s; }
+        
+        @keyframes moveLine {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(100vw + 500px)); }
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* نویگیشن */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1000;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+        
+        .nav-scrolled {
+            padding: 1rem 0;
+            box-shadow: var(--shadow);
+        }
+        
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--accent), #fff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .logo-icon {
+            font-size: 2.2rem;
+            color: var(--accent);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.1); opacity: 0.8; }
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            transition: 0.5s;
+        }
+        
+        .nav-link:hover::before {
+            left: 100%;
+        }
+        
+        .nav-link:hover {
+            background: rgba(37, 99, 235, 0.2);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--light);
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+        
+        /* بخش هیرو */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 8rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(37, 99, 235, 0.2);
+            color: var(--accent);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(6, 182, 212, 0.3);
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(45deg, var(--accent), var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: gradient 3s ease infinite;
+        }
+        
+        @keyframes gradient {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 3rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* دکمه CTA */
+        .cta-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.5rem 3rem;
+            background: var(--gradient);
+            color: white;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border-radius: var(--radius);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            margin: 1rem;
+            box-shadow: 0 10px 30px rgba(37, 99, 235, 0.4);
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 20px 40px rgba(37, 99, 235, 0.6);
+        }
+        
+        .cta-button-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .cta-button-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
+        /* بخش ویژگی‌ها */
+        .features-section {
+            padding: 6rem 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+        
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            right: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 4rem;
+        }
+        
+        .feature-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            padding: 3rem 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+        
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+        
+        .feature-icon {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+        }
+        
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        /* بخش نمونه محتوا */
+        .samples-section {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .samples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+        
+        .sample-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+        
+        .sample-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+        }
+        
+        .sample-header {
+            height: 200px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .sample-header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .sample-content {
+            padding: 2rem;
+        }
+        
+        .sample-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--light);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .sample-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .stat-item i {
+            color: var(--accent);
+        }
+        
+        .sample-btn {
+            display: inline-block;
+            width: 100%;
+            background: rgba(37, 99, 235, 0.2);
+            color: var(--light);
+            text-decoration: none;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: center;
+            font-weight: 600;
+            margin-top: 1rem;
+            transition: var(--transition);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+        }
+        
+        .sample-btn:hover {
+            background: rgba(37, 99, 235, 0.4);
+            transform: translateY(-3px);
+        }
+        
+        /* بخش اشتراک‌گذاری */
+        .share-section {
+            padding: 6rem 0;
+        }
+        
+        .share-buttons {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+        
+        .share-button {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            padding: 1.2rem 2rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .share-button:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .share-button.telegram { background: rgba(0, 136, 204, 0.2); }
+        .share-button.telegram:hover { background: rgba(0, 136, 204, 0.4); }
+        
+        .share-button.whatsapp { background: rgba(37, 211, 102, 0.2); }
+        .share-button.whatsapp:hover { background: rgba(37, 211, 102, 0.4); }
+        
+        .share-button.email { background: rgba(219, 68, 55, 0.2); }
+        .share-button.email:hover { background: rgba(219, 68, 55, 0.4); }
+        
+        /* بخش تماس */
+        .contact-section {
+            padding: 6rem 0;
+            background: rgba(255, 255, 255, 0.02);
+        }
+        
+        .contact-email {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            background: linear-gradient(135deg, #ea4335, #d14836);
+            color: white;
+            text-decoration: none;
+            font-size: 1.3rem;
+            font-weight: 600;
+            padding: 1.5rem 3rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+            transition: var(--transition);
+        }
+        
+        .contact-email:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(234, 67, 53, 0.3);
+        }
+        
+        /* فوتر */
+        footer {
+            background: rgba(2, 6, 23, 0.95);
+            padding: 5rem 0 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+        
+        .footer-brand {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1.5rem;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .social-link {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--glass);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            text-decoration: none;
+            font-size: 1.3rem;
+            transition: var(--transition);
+        }
+        
+        .social-link:hover {
+            background: var(--gradient);
+            transform: translateY(-5px);
+        }
+        
+        .creator-credit {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 1rem;
+        }
+        
+        /* دکمه بازگشت به بالا */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background: var(--gradient);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 1.5rem;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            visibility: hidden;
+            z-index: 999;
+        }
+        
+        .back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-5px) scale(1.1);
+        }
+        
+        /* نوتیفیکیشن */
+        .notification {
+            position: fixed;
+            bottom: 2rem;
+            left: 2rem;
+            background: var(--gradient);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            z-index: 10000;
+            transform: translateX(-150%);
+            transition: transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .notification.show {
+            transform: translateX(0);
+        }
+        
+        /* اسکرول بار */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--gradient);
+            border-radius: 5px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--secondary));
+        }
+        
+        /* رسپانسیو */
+        @media (max-width: 992px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                right: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background: rgba(15, 23, 42, 0.98);
+                backdrop-filter: blur(20px);
+                flex-direction: column;
+                padding: 2rem;
+                transition: 0.5s;
+                border-left: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            
+            .nav-links.active {
+                right: 0;
+            }
+            
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section-title {
+                font-size: 2.3rem;
+            }
+            
+            .features-grid, .samples-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .sample-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .cta-button {
+                padding: 1.2rem 2rem;
+                font-size: 1.1rem;
+            }
+            
+            .share-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .share-button {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .feature-card, .sample-card {
+                padding: 2rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- خطوط متحرک در بک‌گراند -->
+    <div class="background-lines">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+    </div>
+    
+    <!-- نویگیشن -->
+    <nav id="mainNav">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <i class="fas fa-language logo-icon"></i>
+                    Englify
+                </div>
+                
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <div class="nav-links" id="navLinks">
+                    <a href="#features" class="nav-link">ویژگی‌ها</a>
+                    <a href="#samples" class="nav-link">نمونه محتوا</a>
+                    <a href="#share" class="nav-link">اشتراک‌گذاری</a>
+                    <a href="#contact" class="nav-link">تماس</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- بخش هیرو -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content" data-aos="fade-up" data-aos-duration="1000">
+                <div class="hero-badge">
+                    <i class="fas fa-bolt"></i>
+                    آموزش مدرن انگلیسی
+                </div>
+                
+                <h1>
+                    یادگیری انگلیسی با روشی 
+                    <span class="gradient-text">جدید و مؤثر</span>
+                </h1>
+                
+                <p class="hero-subtitle">
+                    هر روز یک درس کاربردی، جذاب و تأثیرگذار که واقعاً در زندگی روزمره کاربرد دارد
+                </p>
+                
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="https://t.me/Englify0" target="_blank" class="cta-button" data-aos="zoom-in" data-aos-delay="300">
+                        <i class="fab fa-telegram-plane"></i>
+                        عضویت در کانال
+                    </a>
+                    
+                    <a href="#samples" class="cta-button cta-button-secondary" data-aos="zoom-in" data-aos-delay="400">
+                        <i class="fas fa-play-circle"></i>
+                        مشاهده نمونه
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- بخش ویژگی‌ها -->
+    <section id="features" class="features-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">چرا Englify متفاوت است؟</h2>
+                <p class="section-subtitle">۷ دلیل که چرا باید امروز یادگیری را با ما شروع کنید</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="feature-icon">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <h3 class="feature-title">ویدیوهای آموزشی</h3>
+                    <p>آموزش با ویدیوهای کوتاه و جذاب برای یادگیری مؤثر و ماندگار</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="feature-icon">
+                        <i class="fas fa-microphone-alt"></i>
+                    </div>
+                    <h3 class="feature-title">تلفظ صحیح</h3>
+                    <p>آموزش تلفظ مانند nativeها با تمرین‌های عملی و کاربردی</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="feature-title">مکالمه روزمره</h3>
+                    <p>اصطلاحات و جملات کاربردی برای مکالمه روان در موقعیت‌های مختلف</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="400">
+                    <div class="feature-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3 class="feature-title">پشتیبانی مستقیم</h3>
+                    <p>پاسخ به سوالات شما در کمترین زمان ممکن توسط تیم حرفه‌ای</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="500">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3 class="feature-title">درس روزانه</h3>
+                    <p>هر روز یک درس جدید و کاربردی برای پیشرفت مستمر</p>
+                </div>
+                
+                <div class="feature-card" data-aos="fade-up" data-aos-delay="600">
+                    <div class="feature-icon">
+                        <i class="fas fa-award"></i>
+                    </div>
+                    <h3 class="feature-title">رایگان و همیشگی</h3>
+                    <p>محتوای باکیفیت کاملاً رایگان برای همیشه بدون هیچ هزینه‌ای</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- بخش نمونه محتوا -->
+    <section id="samples" class="samples-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">نمونه‌هایی از محتوا</h2>
+                <p class="section-subtitle">نگاهی به داخل کانال ما بیندازید</p>
+            </div>
+            
+            <div class="samples-grid">
+                <!-- نمونه ۱ - گرامر -->
+                <div class="sample-card" data-aos="fade-up" data-aos-delay="100">
+                    <div class="sample-header">
+                        <img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="گرامر انگلیسی">
+                    </div>
+                    <div class="sample-content">
+                        <h3 class="sample-title">
+                            <i class="fas fa-book"></i>
+                            گرامر روزانه
+                        </h3>
+                        <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem;">
+                            آموزش گرامر انگلیسی به زبان ساده و کاربردی
+                        </p>
+                        
+                        <div class="sample-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-file-alt"></i>
+                                <span>۱۰۰+ درس گرامر</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>۵۰+ تمرین عملی</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>۲۰+ آزمون آنلاین</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-clock"></i>
+                                <span>هر روز آپدیت</span>
+                            </div>
+                        </div>
+                        
+                        <a href="https://t.me/Englify0" target="_blank" class="sample-btn">
+                            مشاهده نمونه‌های گرامر
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- نمونه ۲ - لغات -->
+                <div class="sample-card" data-aos="fade-up" data-aos-delay="200">
+                    <div class="sample-header">
+                        <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="لغات انگلیسی">
+                    </div>
+                    <div class="sample-content">
+                        <h3 class="sample-title">
+                            <i class="fas fa-font"></i>
+                            لغات کاربردی
+                        </h3>
+                        <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem;">
+                            یادگیری لغات ضروری برای مکالمه روزمره
+                        </p>
+                        
+                        <div class="sample-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-font"></i>
+                                <span>۲۰۰+ کلمه جدید</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-microphone-alt"></i>
+                                <span>۱۵۰+ تلفظ صوتی</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-photo-video"></i>
+                                <span>۱۰۰+ فلش کارت</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-gamepad"></i>
+                                <span>۳۰+ بازی لغت</span>
+                            </div>
+                        </div>
+                        
+                        <a href="https://t.me/Englify0" target="_blank" class="sample-btn">
+                            مشاهده نمونه‌های لغات
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- نمونه ۳ - مکالمه -->
+                <div class="sample-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="sample-header">
+                        <img src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="مکالمه انگلیسی">
+                    </div>
+                    <div class="sample-content">
+                        <h3 class="sample-title">
+                            <i class="fas fa-comments"></i>
+                            مکالمه واقعی
+                        </h3>
+                        <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem;">
+                            جملات و دیالوگ‌های کاربردی در موقعیت‌های مختلف
+                        </p>
+                        
+                        <div class="sample-stats">
+                            <div class="stat-item">
+                                <i class="fas fa-film"></i>
+                                <span>۸۰+ ویدیو مکالمه</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-headphones"></i>
+                                <span>۶۰+ پادکست آموزشی</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-scroll"></i>
+                                <span>۴۰+ دیالوگ واقعی</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="fas fa-user-friends"></i>
+                                <span>۲۰+ موقعیت مختلف</span>
+                            </div>
+                        </div>
+                        
+                        <a href="https://t.me/Englify0" target="_blank" class="sample-btn">
+                            مشاهده نمونه‌های مکالمه
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- بخش اشتراک‌گذاری -->
+    <section id="share" class="share-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">به اشتراک بگذارید</h2>
+                <p class="section-subtitle">این تجربه یادگیری را با دوستانتان تقسیم کنید</p>
+            </div>
+            
+            <div class="share-buttons">
+                <a href="https://t.me/share/url?url=https://t.me/Englify0&text=به کانال عالی Englify برای آموزش انگلیسی بپیوندید! 🎓" 
+                   target="_blank" class="share-button telegram" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fab fa-telegram-plane"></i>
+                    اشتراک در تلگرام
+                </a>
+                
+                <a href="https://wa.me/?text=به کانال عالی Englify برای آموزش انگلیسی بپیوندید! 🎓 https://t.me/Englify0" 
+                   target="_blank" class="share-button whatsapp" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fab fa-whatsapp"></i>
+                    اشتراک در واتساپ
+                </a>
+                
+                <a href="mailto:?subject=کانال آموزش انگلیسی Englify&body=به این کانال عالی برای یادگیری انگلیسی بپیوندید: https://t.me/Englify0" 
+                   class="share-button email" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fas fa-envelope"></i>
+                    ارسال ایمیل
+                </a>
+                
+                <button class="share-button" onclick="copyLink()" data-aos="zoom-in" data-aos-delay="400" style="cursor: pointer;">
+                    <i class="fas fa-copy"></i>
+                    کپی لینک
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <!-- بخش تماس -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <h2 class="section-title">در تماس باشید</h2>
+                <p class="section-subtitle">پیشنهاد، انتقاد یا سوالی دارید؟</p>
+            </div>
+            
+            <div style="text-align: center;">
+                <a href="mailto:abdulbasetnasemi@gmail.com" class="contact-email" data-aos="zoom-in">
+                    <i class="fas fa-envelope"></i>
+                    ارسال ایمیل به ما
+                </a>
+                
+                <p style="color: rgba(255, 255, 255, 0.7); margin-top: 1rem;" data-aos="fade-up">
+                    معمولاً در کمتر از ۲۴ ساعت پاسخ می‌دهیم
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- دکمه عضویت نهایی -->
+    <div class="container" style="text-align: center; padding: 4rem 0;">
+        <div data-aos="zoom-in">
+            <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem;">آماده شروع هستید؟</h2>
+            <p style="color: rgba(255, 255, 255, 0.8); font-size: 1.2rem; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
+                همین الان به جمع زبان‌آموزان Englify بپیوندید و تفاوت را احساس کنید
+            </p>
+            
+            <a href="https://t.me/Englify0" target="_blank" class="cta-button" style="font-size: 1.3rem; padding: 1.5rem 3.5rem;">
+                <i class="fas fa-rocket"></i>
+                عضویت رایگان در کانال
+            </a>
+        </div>
+    </div>
+    
+    <!-- فوتر -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div data-aos="fade-up">
+                    <div class="footer-brand">Englify</div>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1.5rem;">
+                        آموزش انگلیسی به روشی نوین و کاربردی برای فارسی‌زبانان سراسر جهان
+                    </p>
+                    
+                    <div class="social-links">
+                        <a href="https://t.me/Englify0" target="_blank" class="social-link">
+                            <i class="fab fa-telegram-plane"></i>
+                        </a>
+                        <a href="mailto:abdulbasetnasemi@gmail.com" class="social-link">
+                            <i class="fas fa-envelope"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <h3 style="color: var(--accent); margin-bottom: 1.5rem; font-size: 1.5rem;">اطلاعات تماس</h3>
+                    <p style="color: rgba(255, 255, 255, 0.8); margin-bottom: 1rem;">
+                        <i class="fas fa-envelope" style="margin-left: 0.5rem; color: var(--accent);"></i>
+                        abdulbasetnasemi@gmail.com
+                    </p>
+                    <p style="color: rgba(255, 255, 255, 0.8);">
+                        <i class="fas fa-clock" style="margin-left: 0.5rem; color: var(--accent);"></i>
+                        پاسخگویی: ۷ روز هفته
+                    </p>
+                </div>
+            </div>
+            
+            <div class="creator-credit" data-aos="fade-up">
+                <p>
+                    طراحی شده با ❤️ توسط حسیب 
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- دکمه بازگشت به بالا -->
+    <a href="#" class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+    
+    <!-- نوتیفیکیشن -->
+    <div class="notification" id="notification">
+        <div id="notificationMessage"></div>
+    </div>
+
+    <!-- اسکریپت‌ها -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+        
+        // Mobile Menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Nav scroll effect
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('mainNav');
+            if (window.scrollY > 100) {
+                nav.classList.add('nav-scrolled');
+            } else {
+                nav.classList.remove('nav-scrolled');
+            }
+            
+            // Back to top button
+            const backToTop = document.getElementById('backToTop');
+            if (window.scrollY > 500) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        // Copy Link Function
+        function copyLink() {
+            const link = 'https://t.me/Englify0';
+            navigator.clipboard.writeText(link)
+                .then(() => {
+                    showNotification('✅ لینک کپی شد!');
+                })
+                .catch(err => {
+                    showNotification('❌ خطا در کپی لینک');
+                });
+        }
+        
+        // Notification System
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const messageEl = document.getElementById('notificationMessage');
+            
+            messageEl.textContent = message;
+            notification.classList.add('show');
+            
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Auto-hide notification after 5 seconds
+        setTimeout(() => {
+            const notification = document.getElementById('notification');
+            if (notification.classList.contains('show')) {
+                notification.classList.remove('show');
+            }
+        }, 5000);
+        
+        // Add floating effect to some elements
+        document.querySelectorAll('.feature-card, .sample-card').forEach((card, index) => {
+            card.style.animationDelay = `${index * 0.1}s`;
+        });
+    </script>
+</body>
+</html>
